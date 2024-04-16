@@ -22,10 +22,13 @@ configurations {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.github.ajalt.clikt:clikt:4.3.0")
+    implementation("com.vwmin:rest-proxy:1.1.7")
 
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")

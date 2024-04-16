@@ -8,8 +8,8 @@ import com.google.gson.JsonParseException
 import java.lang.reflect.Type
 
 
-class OnebotEventDeserializer : JsonDeserializer<OnebotEvent> {
-    override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): OnebotEvent {
+class OnebotEventDeserializer : JsonDeserializer<IOnebotEvent> {
+    override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): IOnebotEvent {
         val jsonObject = json!!.asJsonObject
         val postType = jsonObject["post_type"].asString
 
@@ -25,7 +25,7 @@ class OnebotEventDeserializer : JsonDeserializer<OnebotEvent> {
         }
     }
 
-    private fun deserializeMessage(jsonObject: JsonObject, context: JsonDeserializationContext?): OnebotEvent {
+    private fun deserializeMessage(jsonObject: JsonObject, context: JsonDeserializationContext?): IOnebotEvent {
         val messageType = jsonObject["message_type"].asString
         val notSupportMessage = JsonParseException("Not supported message type: $messageType")
         return when (messageType) {

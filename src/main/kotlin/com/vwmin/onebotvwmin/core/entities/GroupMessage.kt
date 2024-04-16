@@ -17,4 +17,12 @@ data class GroupMessage(
     val message: List<Message>,
     val messageFormat: String,
     val groupId: Long,
-) : OnebotEvent
+) : IOnebotEvent, IOnebotMessage {
+    override fun rawMessage(): String {
+        return rawMessage
+    }
+
+    override fun segmentMessages(): List<Message> {
+        return message
+    }
+}

@@ -14,6 +14,14 @@ data class PrivateMessage(
     val subType: String,
     val message: List<Message>,
     val messageFormat: String,
-) : OnebotEvent
+) : IOnebotEvent, IOnebotMessage {
+    override fun rawMessage(): String {
+        return rawMessage
+    }
+
+    override fun segmentMessages(): List<Message> {
+        return message
+    }
+}
 
 
