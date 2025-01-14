@@ -1,0 +1,9 @@
+###
+POST http://localhost:8080/onebot
+Content-Type: application/json
+
+{
+  "post_type": "message",
+  "user_id": 1903215898,
+  "message": "echo 123"
+}

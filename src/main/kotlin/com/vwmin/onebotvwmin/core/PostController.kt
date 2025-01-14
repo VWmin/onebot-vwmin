@@ -8,19 +8,16 @@ import org.springframework.context.ApplicationContext
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 @RestController
 class PostController(
     private val context: ApplicationContext,
     private val appConfig: AppConfig,
-){
+) {
     val commandCache = HashMap<String, QuickOperation>()
 
     @PostConstruct
-    fun initCommandHandlerBinds(){
+    fun initCommandHandlerBinds() {
         val beansWithAnnotation = context.getBeansWithAnnotation(CommandController::class.java)
         beansWithAnnotation.forEach { (_, bean) ->
             val annotation = bean.javaClass.getAnnotation(CommandController::class.java)
@@ -34,17 +31,18 @@ class PostController(
 
     @PostMapping("/onebot", consumes = ["application/json"])
     fun handleEvent(@RequestBody event: IOnebotEvent): QuickReply {
-        if (event is IOnebotMessage){
+        if (event is IOnebotMessage) {
             val messages = event.segmentMessages()
             var command = ""
             val args = ArrayList<String>()
 
             // 特殊处理
-            for (message in messages){
+            for (message in messages) {
                 when (message.type) {
-                    "at" ->  if ((message.data as SegmentAt).qq == appConfig.selfId.toString()) {
-                       command = "chat"
+                    "at" -> if ((message.data as SegmentAt).qq == appConfig.selfId.toString()) {
+                        command = "chat"
                     }
+
                     "text" -> if (command == "") {
                         val text = (message.data as SegmentText).text
                         val words = text.split("\\s+".toRegex()).filter { it.isNotEmpty() }
@@ -72,9 +70,4 @@ class PostController(
         }
         return QuickReply.empty()
     }
-
-
-
-
 }
-

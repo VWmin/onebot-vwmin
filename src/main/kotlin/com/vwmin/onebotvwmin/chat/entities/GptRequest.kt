@@ -1,6 +1,6 @@
 package com.vwmin.onebotvwmin.chat.entities
 
 data class GptRequest(
-    val model : String = "gpt-3.5-turbo",
+    val model : String = "deepseek-chat",
     val messages : MutableList<ChatMessage> = ArrayList(),
 )

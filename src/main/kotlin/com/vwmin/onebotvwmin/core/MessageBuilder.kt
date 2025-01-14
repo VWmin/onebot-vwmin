@@ -5,7 +5,7 @@ import com.vwmin.onebotvwmin.core.entities.SegmentAt
 import com.vwmin.onebotvwmin.core.entities.SegmentText
 
 class MessageBuilder(
-    private val message:MutableList<Message> = ArrayList()
+    private val message: MutableList<Message> = ArrayList()
 ) {
     fun plaintext(text: String): MessageBuilder {
         message.add(SegmentText.of(text))
@@ -17,7 +17,5 @@ class MessageBuilder(
         return this
     }
 
-
-
-    fun build() : List<Message> = message
+    fun build(): List<Message> = message
 }

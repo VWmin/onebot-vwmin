@@ -28,10 +28,15 @@ repositories {
 dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.github.ajalt.clikt:clikt:4.3.0")
-    implementation("com.vwmin:rest-proxy:1.1.7")
-
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("com.vwmin:rest-proxy:1.1.7") {
+        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
+    }
+    implementation("org.springframework.boot:spring-boot-starter") {
+        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
+    }
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        exclude(group = "com.fasterxml.jackson.core", module = "jackson-databind")
+    }
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

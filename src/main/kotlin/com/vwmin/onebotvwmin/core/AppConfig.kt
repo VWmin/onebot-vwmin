@@ -4,7 +4,10 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.vwmin.onebotvwmin.chat.GptApi
-import com.vwmin.onebotvwmin.core.entities.*
+import com.vwmin.onebotvwmin.core.entities.IOnebotEvent
+import com.vwmin.onebotvwmin.core.entities.Message
+import com.vwmin.onebotvwmin.core.entities.OnebotEventDeserializer
+import com.vwmin.onebotvwmin.core.entities.SegmentMessageDeserializer
 import com.vwmin.restproxy.RestProxy
 import lombok.Getter
 import lombok.Setter
@@ -12,6 +15,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.client.SimpleClientHttpRequestFactory
+import org.springframework.http.converter.HttpMessageConverter
+import org.springframework.http.converter.json.GsonHttpMessageConverter
 import org.springframework.web.client.RestTemplate
 import java.net.InetSocketAddress
 import java.net.Proxy
@@ -47,7 +52,7 @@ class AppConfig{
 
     @Bean
     fun gptApi(restTemplate: RestTemplate): GptApi {
-        val url = "https://api.openai.com/v1"
+        val url = "https://api.deepseek.com"
         return RestProxy(url, GptApi::class.java, restTemplate).api
     }
 }
