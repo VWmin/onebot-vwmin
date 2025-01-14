@@ -30,7 +30,7 @@ class PostController(
     }
 
     @PostMapping("/onebot", consumes = ["application/json"])
-    fun handleEvent(@RequestBody event: IOnebotEvent): QuickReply {
+    fun handleEvent(@RequestBody event: IOnebotEvent): IQuickReply {
         if (event is IOnebotMessage) {
             val messages = event.segmentMessages()
             var command = ""
@@ -57,7 +57,7 @@ class PostController(
             }
             println("command: $command, args: ${args.joinToString(" ")}")
 
-            val operation = commandCache[command] ?: return QuickReply.empty()
+            val operation = commandCache[command] ?: return EmptyReply()
 
             operation as CliktCommand
             try {
@@ -65,9 +65,9 @@ class PostController(
                 return operation.reply()
             } catch (e: CliktError) {
                 operation.echoFormattedHelp(e)
-                return QuickReply.empty()
+                return EmptyReply()
             }
         }
-        return QuickReply.empty()
+        return EmptyReply()
     }
 }
